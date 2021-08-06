@@ -1,4 +1,4 @@
-import { nspawn as spawn, KEY_UP_ARROW, KEY_DOWN_ARROW, getCLIPath, getSocialProviders } from '..';
+import { nspawn as spawn, KEY_UP_ARROW, KEY_DOWN_ARROW, getCLIPath, getScriptRunnerPath, getSocialProviders } from '..';
 
 export type AddAuthUserPoolOnlyNoOAuthSettings = {
   resourceName: string;
@@ -35,7 +35,7 @@ export type AddAuthIdentityPoolAndUserPoolWithOAuthSettings = AddAuthUserPoolOnl
 
 export function addAuthWithDefault(cwd: string, settings: any = {}): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication')
       .sendCarriageReturn()
       .wait('How do you want users to be able to sign in')
@@ -55,7 +55,7 @@ export function addAuthWithDefault(cwd: string, settings: any = {}): Promise<voi
 
 export function runAmplifyAuthConsole(cwd: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['auth', 'console'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'auth', 'console'], { cwd, stripColors: true })
       .wait('Which console')
       .sendCarriageReturn()
       .wait('Identity Pool console:')
@@ -71,7 +71,7 @@ export function runAmplifyAuthConsole(cwd: string): Promise<void> {
 
 export function removeAuthWithDefault(cwd: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['remove', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'remove', 'auth'], { cwd, stripColors: true })
       .wait('Choose the resource you would want to remove')
       .sendCarriageReturn()
       .wait('Are you sure you want to delete the resource? This')
@@ -89,7 +89,7 @@ export function removeAuthWithDefault(cwd: string): Promise<void> {
 
 export function addAuthWithGroupTrigger(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .sendCarriageReturn()
       .wait('How do you want users to be able to sign in')
@@ -121,7 +121,7 @@ export function addAuthWithGroupTrigger(cwd: string, settings: any): Promise<voi
 
 export function addAuthViaAPIWithTrigger(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'api'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'api'], { cwd, stripColors: true })
       .wait('Please select from one of the below mentioned services:')
       .sendCarriageReturn()
       .wait('Provide API name')
@@ -169,7 +169,7 @@ export function addAuthViaAPIWithTrigger(cwd: string, settings: any): Promise<vo
 
 export function addAuthwithUserPoolGroupsViaAPIWithTrigger(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'api'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'api'], { cwd, stripColors: true })
       .wait('Please select from one of the below mentioned services:')
       .sendCarriageReturn()
       .wait('Provide API name')
@@ -256,7 +256,7 @@ export function addAuthwithUserPoolGroupsViaAPIWithTrigger(cwd: string, settings
 
 export function addAuthWithCustomTrigger(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .send(KEY_DOWN_ARROW)
       .send(KEY_DOWN_ARROW)
@@ -336,7 +336,7 @@ export function addAuthWithCustomTrigger(cwd: string, settings: any): Promise<vo
 
 export function updateAuthSignInSignOutUrl(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['update', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'update', 'auth'], { cwd, stripColors: true })
       .wait('What do you want to do?')
       .send(KEY_DOWN_ARROW)
       .send(KEY_DOWN_ARROW)
@@ -370,7 +370,7 @@ export function updateAuthSignInSignOutUrl(cwd: string, settings: any): Promise<
 
 export function updateAuthWithoutCustomTrigger(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['update', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'update', 'auth'], { cwd, stripColors: true })
       .wait('What do you want to do?')
       .send(KEY_DOWN_ARROW)
       .send(KEY_DOWN_ARROW)
@@ -425,7 +425,7 @@ export function updateAuthWithoutCustomTrigger(cwd: string, settings: any): Prom
 
 export function addAuthWithRecaptchaTrigger(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .sendCarriageReturn()
       .wait('How do you want users to be able to sign in?')
@@ -459,7 +459,7 @@ export function addAuthWithRecaptchaTrigger(cwd: string, settings: any): Promise
 
 export function updateAuthRemoveRecaptchaTrigger(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['update', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'update', 'auth'], { cwd, stripColors: true })
       .wait('What do you want to do')
       .send(KEY_DOWN_ARROW)
       .sendCarriageReturn()
@@ -511,7 +511,7 @@ export function updateAuthRemoveRecaptchaTrigger(cwd: string, settings: any): Pr
 
 export function addAuthWithSignInSignOutUrl(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .sendLine(KEY_DOWN_ARROW)
       .sendCarriageReturn()
@@ -551,7 +551,7 @@ export function addAuthWithDefaultSocial_v4_30(cwd: string, settings: any): Prom
       true,
     );
 
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .send(KEY_DOWN_ARROW)
       .sendCarriageReturn()
@@ -616,7 +616,7 @@ export function addAuthWithDefaultSocial(cwd: string, settings: any): Promise<vo
       APPLE_PRIVATE_KEY,
     } = getSocialProviders(true);
 
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .send(KEY_DOWN_ARROW)
       .sendCarriageReturn()
@@ -693,7 +693,7 @@ export function addAuthUserPoolOnly(cwd: string, settings: any): Promise<void> {
       APPLE_PRIVATE_KEY,
     } = getSocialProviders(true);
 
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .send(KEY_DOWN_ARROW)
       .send(KEY_DOWN_ARROW)
@@ -879,7 +879,7 @@ export function addAuthUserPoolOnly(cwd: string, settings: any): Promise<void> {
 
 export function addAuthWithGroupsAndAdminAPI(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration')
       .send(KEY_DOWN_ARROW)
       .send(KEY_DOWN_ARROW)
@@ -967,7 +967,7 @@ export function addAuthWithMaxOptions(cwd: string, settings: any): Promise<void>
   } = getSocialProviders(true);
 
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .send(KEY_DOWN_ARROW)
       .send(KEY_DOWN_ARROW)
@@ -1151,7 +1151,7 @@ export function addAuthWithMaxOptions(cwd: string, settings: any): Promise<void>
 //add default auth with pre token generation trigger
 export function addAuthWithPreTokenGenerationTrigger(projectDir: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'auth'], { cwd: projectDir, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd: projectDir, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration')
       .sendCarriageReturn()
       .wait('How do you want users to be able to sign in')
@@ -1185,7 +1185,7 @@ export function updateAuthAddUserGroups(projectDir: string, groupNames: string[]
   }
 
   return new Promise((resolve, reject) => {
-    let chain = spawn(getCLIPath(), ['update', 'auth'], { cwd: projectDir, stripColors: true })
+    let chain = spawn(getScriptRunnerPath(), [getCLIPath(), 'update', 'auth'], { cwd: projectDir, stripColors: true })
       .wait('What do you want to do?')
       .send(KEY_DOWN_ARROW)
       .send(KEY_DOWN_ARROW)
@@ -1224,7 +1224,7 @@ export function updateAuthAddUserGroups(projectDir: string, groupNames: string[]
 
 export function addAuthUserPoolOnlyWithOAuth(cwd: string, settings: AddAuthUserPoolOnlyWithOAuthSettings): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .sendKeyDown(2)
       .sendCarriageReturn()
@@ -1325,7 +1325,7 @@ export function addAuthIdentityPoolAndUserPoolWithOAuth(
   settings: AddAuthIdentityPoolAndUserPoolWithOAuthSettings,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
-    let chain = spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    let chain = spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .sendKeyDown(2)
       .sendCarriageReturn()
@@ -1446,7 +1446,7 @@ export function addAuthIdentityPoolAndUserPoolWithOAuth(
 
 export function addAuthUserPoolOnlyNoOAuth(cwd: string, settings: AddAuthUserPoolOnlyNoOAuthSettings): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['add', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'add', 'auth'], { cwd, stripColors: true })
       .wait('Do you want to use the default authentication and security configuration?')
       .sendKeyDown(2)
       .sendCarriageReturn()
@@ -1501,7 +1501,7 @@ export function addAuthUserPoolOnlyNoOAuth(cwd: string, settings: AddAuthUserPoo
 
 export function updateAuthAddAdminQueries(projectDir: string, groupName: string = 'adminQueriesGroup'): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['update', 'auth'], { cwd: projectDir, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'update', 'auth'], { cwd: projectDir, stripColors: true })
       .wait('What do you want to do?')
       .send(KEY_DOWN_ARROW)
       .send(KEY_DOWN_ARROW)
@@ -1528,7 +1528,7 @@ export function updateAuthAddAdminQueries(projectDir: string, groupName: string 
 
 export function updateAuthWithoutTrigger(cwd: string, settings: any): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['update', 'auth'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'update', 'auth'], { cwd, stripColors: true })
       .wait('What do you want to do?')
       .send(KEY_DOWN_ARROW)
       .sendCarriageReturn()

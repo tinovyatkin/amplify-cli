@@ -1,4 +1,4 @@
-import { nspawn as spawn, getCLIPath, singleSelect, addCircleCITags } from '..';
+import { nspawn as spawn, getCLIPath, getScriptRunnerPath, singleSelect, addCircleCITags } from '..';
 import { KEY_DOWN_ARROW } from '../utils';
 import { amplifyRegions } from '../configure';
 
@@ -34,7 +34,7 @@ export function initJSProjectWithProfile(cwd: string, settings?: Partial<typeof 
 
   addCircleCITags(cwd);
 
-  const cliArgs = ['init'];
+  const cliArgs = [getCLIPath(), 'init'];
   const providerConfigSpecified = !!s.providerConfig && typeof s.providerConfig === 'object';
   if (providerConfigSpecified) {
     cliArgs.push('--providers', JSON.stringify(s.providerConfig));
@@ -45,7 +45,7 @@ export function initJSProjectWithProfile(cwd: string, settings?: Partial<typeof 
   }
 
   return new Promise((resolve, reject) => {
-    const chain = spawn(getCLIPath(), cliArgs, { cwd, stripColors: true, env, disableCIDetection: s.disableCIDetection })
+    const chain = spawn(getScriptRunnerPath(), cliArgs, { cwd, stripColors: true, env, disableCIDetection: s.disableCIDetection })
       .wait('Enter a name for the project')
       .sendLine(s.name)
       .wait('Initialize the project with the above configuration?')
@@ -92,7 +92,7 @@ export function initAndroidProjectWithProfile(cwd: string, settings: Object): Pr
   addCircleCITags(cwd);
 
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['init'], {
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'init'], {
       cwd,
       stripColors: true,
       env: {
@@ -135,7 +135,7 @@ export function initIosProjectWithProfile(cwd: string, settings: Object): Promis
   addCircleCITags(cwd);
 
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['init'], {
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'init'], {
       cwd,
       stripColors: true,
       env: {
@@ -176,7 +176,7 @@ export function initFlutterProjectWithProfile(cwd: string, settings: Object): Pr
   addCircleCITags(cwd);
 
   return new Promise((resolve, reject) => {
-    let chain = spawn(getCLIPath(), ['init'], { cwd, stripColors: true })
+    let chain = spawn(getScriptRunnerPath(), [getCLIPath(), 'init'], { cwd, stripColors: true })
       .wait('Enter a name for the project')
       .sendLine(s.name)
       .wait('Initialize the project with the above configuration?')
@@ -217,7 +217,7 @@ export function initProjectWithAccessKey(
   addCircleCITags(cwd);
 
   return new Promise((resolve, reject) => {
-    let chain = spawn(getCLIPath(), ['init'], {
+    let chain = spawn(getScriptRunnerPath(), [getCLIPath(), 'init'], {
       cwd,
       stripColors: true,
       env: {
@@ -272,7 +272,7 @@ export function initNewEnvWithAccessKey(cwd: string, s: { envName: string; acces
   addCircleCITags(cwd);
 
   return new Promise((resolve, reject) => {
-    let chain = spawn(getCLIPath(), ['init'], {
+    let chain = spawn(getScriptRunnerPath(), [getCLIPath(), 'init'], {
       cwd,
       stripColors: true,
       env: {
@@ -311,7 +311,7 @@ export function initNewEnvWithProfile(cwd: string, s: { envName: string }): Prom
   addCircleCITags(cwd);
 
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['init'], {
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'init'], {
       cwd,
       stripColors: true,
       env: {
@@ -351,7 +351,7 @@ export function amplifyInitSandbox(cwd: string, settings: {}): Promise<void> {
   addCircleCITags(cwd);
 
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['init'], { cwd, stripColors: true, env })
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'init'], { cwd, stripColors: true, env })
       .wait('Enter a name for the environment')
       .sendLine(s.envName)
       .wait('Choose your default editor:')
@@ -374,7 +374,7 @@ export function amplifyInitSandbox(cwd: string, settings: {}): Promise<void> {
 
 export function amplifyInitYes(cwd: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(), ['init', '--yes'], {
+    spawn(getScriptRunnerPath(), [getCLIPath(), 'init', '--yes'], {
       cwd,
       stripColors: true,
       env: {
@@ -392,7 +392,7 @@ export function amplifyInitYes(cwd: string): Promise<void> {
 
 export function amplifyVersion(cwd: string, expectedVersion: string, testingWithLatestCodebase = false): Promise<void> {
   return new Promise((resolve, reject) => {
-    spawn(getCLIPath(testingWithLatestCodebase), ['--version'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), '--version'], { cwd, stripColors: true })
       .wait(expectedVersion)
       .run((err: Error) => {
         if (!err) {
@@ -408,7 +408,7 @@ export function amplifyVersion(cwd: string, expectedVersion: string, testingWith
 export function amplifyStatusWithMigrate(cwd: string, expectedStatus: string, testingWithLatestCodebase): Promise<void> {
   return new Promise((resolve, reject) => {
     let regex = new RegExp(`.*${expectedStatus}*`);
-    spawn(getCLIPath(testingWithLatestCodebase), ['status'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), 'status'], { cwd, stripColors: true })
       .wait('Amplify has been upgraded to handle secrets more securely by migrating some values')
       .sendConfirmYes()
       .wait(regex)
@@ -426,7 +426,7 @@ export function amplifyStatusWithMigrate(cwd: string, expectedStatus: string, te
 export function amplifyStatus(cwd: string, expectedStatus: string, testingWithLatestCodebase = false): Promise<void> {
   return new Promise((resolve, reject) => {
     let regex = new RegExp(`.*${expectedStatus}*`);
-    spawn(getCLIPath(testingWithLatestCodebase), ['status'], { cwd, stripColors: true })
+    spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), 'status'], { cwd, stripColors: true })
       .wait(regex)
       .sendLine('\r')
       .run((err: Error) => {
