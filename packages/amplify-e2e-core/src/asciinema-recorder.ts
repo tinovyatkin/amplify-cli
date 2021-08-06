@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import * as pty from 'node-pty-prebuilt-multiarch';
 // import * as pty from 'node-pty';
+=======
+import * as pty from 'node-pty';
+>>>>>>> e1ed94dca (test: win-e2e)
 import chalk from 'chalk';
 
 export type RecordingHeader = {
@@ -67,8 +71,16 @@ export class Recorder {
       rows: this.rows,
       cwd: this.cwd,
       ...this.options,
+<<<<<<< HEAD
       useConpty: false,
       env: this.options.env,
+=======
+      useConpty: process.platform === 'win32' ? true : false,
+      env: {
+        NODE_OPTIONS: '--max_old_space_size=4096',
+        ...this.options.env,
+      }
+>>>>>>> e1ed94dca (test: win-e2e)
     });
     this.addFrame(this.renderPrompt(this.cwd, this.cmd, this.args));
     this.childProcess.onData(this.onData.bind(this));

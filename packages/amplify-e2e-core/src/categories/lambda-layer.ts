@@ -131,7 +131,11 @@ export function addLayer(
   };
   settings = { ...defaultSettings, ...settings };
   return new Promise((resolve, reject) => {
+<<<<<<< HEAD
     const chain: ExecutionContext = spawn(getScriptRunnerPath(testingWithLatestCodebase), [getCLIPath(testingWithLatestCodebase), 'add', 'function'], { cwd, stripColors: true })
+=======
+    const chain: ExecutionContext = spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), 'add', 'function'], { cwd, stripColors: true })
+>>>>>>> e1ed94dca (test: win-e2e)
       .wait('Select which capability you want to add:')
       .sendKeyDown()
       .sendCarriageReturn() // Layer
@@ -202,7 +206,11 @@ export function removeLayerVersion(
   testingWithLatestCodebase = false,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
+<<<<<<< HEAD
     const chain = spawn(getScriptRunnerPath(testingWithLatestCodebase), [getCLIPath(testingWithLatestCodebase), 'remove', 'function'], { cwd, stripColors: true })
+=======
+    const chain = spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), 'remove', 'function'], { cwd, stripColors: true })
+>>>>>>> e1ed94dca (test: win-e2e)
       .wait('Choose the resource you would want to remove')
       .sendCarriageReturn() // first one
       .wait('When you delete a layer version, you can no longer configure functions to use it.')
@@ -250,7 +258,11 @@ export function updateLayer(
   testingWithLatestCodebase: boolean = false,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
+<<<<<<< HEAD
     const chain: ExecutionContext = spawn(getScriptRunnerPath(testingWithLatestCodebase), [getCLIPath(testingWithLatestCodebase), 'update', 'function'], { cwd, stripColors: true })
+=======
+    const chain: ExecutionContext = spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), 'update', 'function'], { cwd, stripColors: true })
+>>>>>>> e1ed94dca (test: win-e2e)
     if (settings.numLayers > 1) {
       chain.wait('Select the Lambda layer to update:').sendCarriageReturn();
     }

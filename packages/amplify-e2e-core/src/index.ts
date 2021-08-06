@@ -25,7 +25,11 @@ declare global {
 const amplifyTestsDir = 'amplify-e2e-tests';
 
 export function getCLIPath(testingWithLatestCodebase = false) {
+<<<<<<< HEAD
   if (!testingWithLatestCodebase) {
+=======
+  if (testingWithLatestCodebase) {
+>>>>>>> e1ed94dca (test: win-e2e)
     return process.env.AMPLIFY_PATH || (process.platform === 'win32' ? 'amplify.exe' : 'amplify');
   }
 
@@ -33,6 +37,7 @@ export function getCLIPath(testingWithLatestCodebase = false) {
   return amplifyScriptPath;
 }
 
+<<<<<<< HEAD
 export function getScriptRunnerPath(testingWithLatestCodebase = false) {
   if (!testingWithLatestCodebase) {
     return process.platform === 'win32' ? 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe' : path.join(__dirname, '..', '..', '..', '.circleci', 'exec');
@@ -40,6 +45,10 @@ export function getScriptRunnerPath(testingWithLatestCodebase = false) {
 
   // nodejs executable
   return process.execPath;
+=======
+export function getScriptRunnerPath() {
+  return process.platform === 'win32' ? path.join('C:', 'Program Files', 'nodejs', 'node.exe') : '/Users/xss/.nvm/versions/node/v12.20.1/bin/node';
+>>>>>>> e1ed94dca (test: win-e2e)
 }
 
 export function isCI(): boolean {

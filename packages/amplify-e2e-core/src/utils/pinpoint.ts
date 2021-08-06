@@ -1,10 +1,15 @@
 import { Pinpoint } from 'aws-sdk';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { getCLIPath, getScriptRunnerPath, nspawn as spawn, singleSelect, amplifyRegions, addCircleCITags, KEY_DOWN_ARROW } from '..';
 =======
 import { getCLIPath, nspawn as spawn, singleSelect, amplifyRegions, addCircleCITags, KEY_DOWN_ARROW } from '..';
 import { getCredentials } from '../utils'
 >>>>>>> 2b456f605 (chore: leverage aws orgs to battle resource limits)
+=======
+import { getCredentials } from '../utils'
+import { getCLIPath, getScriptRunnerPath, nspawn as spawn, singleSelect, amplifyRegions, addCircleCITags, KEY_DOWN_ARROW } from '..';
+>>>>>>> e1ed94dca (test: win-e2e)
 import _ from 'lodash';
 
 let settings: any = {

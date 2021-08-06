@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { nspawn as spawn, getCLIPath, getScriptRunnerPath, } from 'amplify-e2e-core';
 =======
 import { nspawn as spawn, getCLIPath, getCredentials } from 'amplify-e2e-core';
 >>>>>>> 2b456f605 (chore: leverage aws orgs to battle resource limits)
+=======
+import { nspawn as spawn, getCLIPath, getScriptRunnerPath, getCredentials } from 'amplify-e2e-core';
+>>>>>>> e1ed94dca (test: win-e2e)
 
 export async function newPlugin(cwd: string): Promise<string> {
   const pluginPackageDirName = 'newpluginpackage';

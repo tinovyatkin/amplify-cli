@@ -1,9 +1,13 @@
 import path from 'path';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { nspawn as spawn, getCLIPath, getScriptRunnerPath, singleSelect, amplifyRegions, addCircleCITags, KEY_DOWN_ARROW } from 'amplify-e2e-core';
 =======
 import { nspawn as spawn, getCLIPath, singleSelect, amplifyRegions, addCircleCITags, KEY_DOWN_ARROW, getCredentials } from 'amplify-e2e-core';
 >>>>>>> 2b456f605 (chore: leverage aws orgs to battle resource limits)
+=======
+import { nspawn as spawn, getCLIPath, getScriptRunnerPath, singleSelect, amplifyRegions, addCircleCITags, KEY_DOWN_ARROW, getCredentials } from 'amplify-e2e-core';
+>>>>>>> e1ed94dca (test: win-e2e)
 import fs from 'fs-extra';
 import os from 'os';
 

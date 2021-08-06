@@ -3,8 +3,12 @@ import * as fs from 'fs-extra';
 import _ from 'lodash';
 import {
   nspawn as spawn,
+<<<<<<< HEAD
   getCLIPath,
   getScriptRunnerPath,
+=======
+  getCLIPath, getScriptRunnerPath,
+>>>>>>> e1ed94dca (test: win-e2e)
   addFunction,
   initJSProjectWithProfile,
   deleteProject,

@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { nspawn as spawn, getCLIPath, getScriptRunnerPath, singleSelect, addCircleCITags } from '..';
 import { KEY_DOWN_ARROW } from '../utils';
 =======
 import { nspawn as spawn, getCLIPath, singleSelect, addCircleCITags } from '..';
+=======
+import { nspawn as spawn, getCLIPath, getScriptRunnerPath, singleSelect, addCircleCITags } from '..';
+>>>>>>> e1ed94dca (test: win-e2e)
 import { getCredentials, KEY_DOWN_ARROW } from '../utils';
 >>>>>>> 2b456f605 (chore: leverage aws orgs to battle resource limits)
 import { amplifyRegions } from '../configure';
@@ -403,7 +407,11 @@ export function amplifyInitYes(cwd: string): Promise<void> {
 
 export function amplifyVersion(cwd: string, expectedVersion: string, testingWithLatestCodebase = false): Promise<void> {
   return new Promise((resolve, reject) => {
+<<<<<<< HEAD
     spawn(getScriptRunnerPath(testingWithLatestCodebase), [getCLIPath(testingWithLatestCodebase), '--version'], { cwd, stripColors: true })
+=======
+    spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), '--version'], { cwd, stripColors: true })
+>>>>>>> e1ed94dca (test: win-e2e)
       .wait(expectedVersion)
       .run((err: Error) => {
         if (!err) {
@@ -419,7 +427,11 @@ export function amplifyVersion(cwd: string, expectedVersion: string, testingWith
 export function amplifyStatusWithMigrate(cwd: string, expectedStatus: string, testingWithLatestCodebase): Promise<void> {
   return new Promise((resolve, reject) => {
     let regex = new RegExp(`.*${expectedStatus}*`);
+<<<<<<< HEAD
     spawn(getScriptRunnerPath(testingWithLatestCodebase), [getCLIPath(testingWithLatestCodebase), 'status'], { cwd, stripColors: true })
+=======
+    spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), 'status'], { cwd, stripColors: true })
+>>>>>>> e1ed94dca (test: win-e2e)
       .wait('Amplify has been upgraded to handle secrets more securely by migrating some values')
       .sendConfirmYes()
       .wait(regex)
@@ -437,7 +449,11 @@ export function amplifyStatusWithMigrate(cwd: string, expectedStatus: string, te
 export function amplifyStatus(cwd: string, expectedStatus: string, testingWithLatestCodebase = false): Promise<void> {
   return new Promise((resolve, reject) => {
     let regex = new RegExp(`.*${expectedStatus}*`);
+<<<<<<< HEAD
     spawn(getScriptRunnerPath(testingWithLatestCodebase), [getCLIPath(testingWithLatestCodebase), 'status'], { cwd, stripColors: true })
+=======
+    spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), 'status'], { cwd, stripColors: true })
+>>>>>>> e1ed94dca (test: win-e2e)
       .wait(regex)
       .sendLine('\r')
       .run((err: Error) => {

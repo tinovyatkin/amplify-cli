@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { nspawn as spawn, KEY_DOWN_ARROW, getCLIPath, getScriptRunnerPath } from '..';
 import os from 'os';
+=======
+import { nspawn as spawn, KEY_DOWN_ARROW, getCLIPath, getScriptRunnerPath, } from '..';
+>>>>>>> e1ed94dca (test: win-e2e)
 
 // add convert resource
 export function addConvert(cwd: string, settings: any): Promise<void> {

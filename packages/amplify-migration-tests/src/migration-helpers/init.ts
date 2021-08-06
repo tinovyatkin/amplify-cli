@@ -30,7 +30,11 @@ export function initJSProjectWithProfileOldDX(cwd: string, settings: Object, tes
   addCircleCITags(cwd);
 
   return new Promise((resolve, reject) => {
+<<<<<<< HEAD
     spawn(getScriptRunnerPath(testingWithLatestCodebase), [getCLIPath(testingWithLatestCodebase), 'init'], { cwd, stripColors: true, env })
+=======
+    spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), 'init'], { cwd, stripColors: true, env })
+>>>>>>> e1ed94dca (test: win-e2e)
       .wait('Enter a name for the project')
       .sendLine(s.name)
       .wait('Enter a name for the environment')
@@ -78,7 +82,11 @@ export function initJSProjectWithProfile(cwd: string, settings: Object, testingW
   addCircleCITags(cwd);
 
   return new Promise((resolve, reject) => {
+<<<<<<< HEAD
     spawn(getScriptRunnerPath(testingWithLatestCodebase), [getCLIPath(testingWithLatestCodebase), 'init'], { cwd, stripColors: true, env })
+=======
+    spawn(getScriptRunnerPath(), [getCLIPath(testingWithLatestCodebase), 'init'], { cwd, stripColors: true, env })
+>>>>>>> e1ed94dca (test: win-e2e)
       .wait('Enter a name for the project')
       .sendLine(s.name)
       .wait('Initialize the project with the above configuration?')

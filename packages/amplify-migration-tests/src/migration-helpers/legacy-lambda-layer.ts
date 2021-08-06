@@ -1,8 +1,12 @@
 import { pathManager } from 'amplify-cli-core';
 import {
   ExecutionContext,
+<<<<<<< HEAD
   getCLIPath,
   getScriptRunnerPath,
+=======
+  getCLIPath, getScriptRunnerPath,
+>>>>>>> e1ed94dca (test: win-e2e)
   getRuntimeDisplayNames,
   LayerPermissionChoice,
   LayerRuntime,
