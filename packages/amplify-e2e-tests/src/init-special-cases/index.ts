@@ -1,9 +1,14 @@
 import path from 'path';
+<<<<<<< HEAD
 import { nspawn as spawn, getCLIPath, getScriptRunnerPath, singleSelect, amplifyRegions, addCircleCITags, KEY_DOWN_ARROW } from 'amplify-e2e-core';
+=======
+import { nspawn as spawn, getCLIPath, singleSelect, amplifyRegions, addCircleCITags, KEY_DOWN_ARROW, getCredentials } from 'amplify-e2e-core';
+>>>>>>> 2b456f605 (chore: leverage aws orgs to battle resource limits)
 import fs from 'fs-extra';
 import os from 'os';
 
 export async function initWithoutCredentialFileAndNoNewUserSetup(projRoot) {
+  getCredentials();
   const settings = {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -44,6 +49,7 @@ export async function initWithoutCredentialFileAndNoNewUserSetup(projRoot) {
 
 async function initWorkflow(cwd: string, settings: { accessKeyId: string; secretAccessKey: string; region: string }): Promise<void> {
   addCircleCITags(cwd);
+  getCredentials();
 
   return new Promise((resolve, reject) => {
     let chain = spawn(getScriptRunnerPath(), [getCLIPath(), 'init'], {
