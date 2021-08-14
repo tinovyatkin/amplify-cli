@@ -23,6 +23,7 @@ export * from './banner-message';
 export * from './cliGetCategories';
 export * from './cliRemoveResourcePrompt';
 export * from "./cliViewAPI";
+export {TypeDef, CLIInputSchemaGenerator} from "./categoryBaseGenSchema";
 
 // Temporary types until we can finish full type definition across the whole CLI
 
