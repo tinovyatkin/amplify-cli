@@ -1,10 +1,9 @@
-const path = require('path');
+import * as path from 'path';
 const sequential = require('promise-sequential');
-const { updateConfigOnEnvInit } = require('./provider-utils/awscloudformation');
+import { updateConfigOnEnvInit } from './provider-utils/awscloudformation';
+import { AmplifyCategories } from 'amplify-cli-core';
 
-const category = 'storage';
-
-async function add(context, providerName, service) {
+async function add(context: any, providerName: any, service: any) {
   const options = {
     service,
     providerPlugin: providerName,
@@ -17,32 +16,32 @@ async function add(context, providerName, service) {
     return;
   }
 
-  return providerController.addResource(context, category, service, options);
+  return providerController.addResource(context, AmplifyCategories.STORAGE, service, options);
 }
 
-async function console(context) {
-  context.print.info(`to be implemented: ${category} console`);
+async function categoryConsole(context: any) {
+  context.print.info(`to be implemented: ${AmplifyCategories.STORAGE} console`);
 }
 
-async function migrate(context) {
+async function migrateStorageCategory(context: any) {
   const { projectPath, amplifyMeta } = context.migrationInfo;
-  const migrateResourcePromises = [];
+  const migrateResourcePromises: any = [];
 
   Object.keys(amplifyMeta).forEach(categoryName => {
-    if (categoryName === category) {
-      Object.keys(amplifyMeta[category]).forEach(resourceName => {
+    if (categoryName === AmplifyCategories.STORAGE) {
+      Object.keys(amplifyMeta[AmplifyCategories.STORAGE]).forEach(resourceName => {
         try {
-          const providerController = require(`./provider-utils/${amplifyMeta[category][resourceName].providerPlugin}`);
+          const providerController = require(`./provider-utils/${amplifyMeta[AmplifyCategories.STORAGE][resourceName].providerPlugin}`);
 
           if (providerController) {
             migrateResourcePromises.push(
-              providerController.migrateResource(context, projectPath, amplifyMeta[category][resourceName].service, resourceName),
+              providerController.migrateResource(context, projectPath, amplifyMeta[AmplifyCategories.STORAGE][resourceName].service, resourceName),
             );
           } else {
-            context.print.error(`Provider not configured for ${category}: ${resourceName}`);
+            context.print.error(`Provider not configured for ${AmplifyCategories.STORAGE}: ${resourceName}`);
           }
         } catch (e) {
-          context.print.warning(`Could not run migration for ${category}: ${resourceName}`);
+          context.print.warning(`Could not run migration for ${AmplifyCategories.STORAGE}: ${resourceName}`);
           throw e;
         }
       });
@@ -52,22 +51,23 @@ async function migrate(context) {
   await Promise.all(migrateResourcePromises);
 }
 
-async function getPermissionPolicies(context, resourceOpsMapping) {
+async function getPermissionPolicies(context: any, resourceOpsMapping: any) {
   const amplifyMetaFilePath = context.amplify.pathManager.getAmplifyMetaFilePath();
   const amplifyMeta = context.amplify.readJsonFile(amplifyMetaFilePath);
-  const permissionPolicies = [];
-  const resourceAttributes = [];
+  const permissionPolicies: any = [];
+  const resourceAttributes: any = [];
+  const storageCategory = AmplifyCategories.STORAGE;
 
   Object.keys(resourceOpsMapping).forEach(resourceName => {
     try {
       const providerPlugin =
         'providerPlugin' in resourceOpsMapping[resourceName]
           ? resourceOpsMapping[resourceName].providerPlugin
-          : amplifyMeta[category][resourceName].providerPlugin;
+          : amplifyMeta[storageCategory][resourceName].providerPlugin;
       const service =
         'service' in resourceOpsMapping[resourceName]
           ? resourceOpsMapping[resourceName].service
-          : amplifyMeta[category][resourceName].service;
+          : amplifyMeta[storageCategory][resourceName].service;
 
       if (providerPlugin) {
         const providerController = require(`./provider-utils/${providerPlugin}`);
@@ -82,12 +82,12 @@ async function getPermissionPolicies(context, resourceOpsMapping) {
         } else {
           permissionPolicies.push(policy);
         }
-        resourceAttributes.push({ resourceName, attributes, category });
+        resourceAttributes.push( { resourceName, attributes, storageCategory });
       } else {
-        context.print.error(`Provider not configured for ${category}: ${resourceName}`);
+        context.print.error(`Provider not configured for ${storageCategory}: ${resourceName}`);
       }
     } catch (e) {
-      context.print.warning(`Could not get policies for ${category}: ${resourceName}`);
+      context.print.warning(`Could not get policies for ${storageCategory}: ${resourceName}`);
       throw e;
     }
   });
@@ -95,13 +95,13 @@ async function getPermissionPolicies(context, resourceOpsMapping) {
   return { permissionPolicies, resourceAttributes };
 }
 
-async function executeAmplifyCommand(context) {
+async function executeAmplifyCommand(context: any) {
   let commandPath = path.normalize(path.join(__dirname, 'commands'));
 
   if (context.input.command === 'help') {
-    commandPath = path.join(commandPath, category);
+    commandPath = path.join(commandPath, AmplifyCategories.STORAGE);
   } else {
-    commandPath = path.join(commandPath, category, context.input.command);
+    commandPath = path.join(commandPath, AmplifyCategories.STORAGE, context.input.command);
   }
 
   const commandModule = require(commandPath);
@@ -109,27 +109,27 @@ async function executeAmplifyCommand(context) {
   await commandModule.run(context);
 }
 
-async function handleAmplifyEvent(context, args) {
-  context.print.info(`${category} handleAmplifyEvent to be implemented`);
+async function handleAmplifyEvent(context: any, args: any) {
+  context.print.info(`${AmplifyCategories.STORAGE} handleAmplifyEvent to be implemented`);
   context.print.info(`Received event args ${args}`);
 }
 
-async function initEnv(context) {
-  const { resourcesToBeSynced, allResources } = await context.amplify.getResourceStatus(category);
+async function initEnv(context: any) {
+  const { resourcesToBeSynced, allResources } = await context.amplify.getResourceStatus(AmplifyCategories.STORAGE);
   const isPulling = context.input.command === 'pull' || (context.input.command === 'env' && context.input.subCommands[0] === 'pull');
   let toBeSynced = [];
 
   if (resourcesToBeSynced && resourcesToBeSynced.length > 0) {
-    toBeSynced = resourcesToBeSynced.filter(b => b.category === category);
+    toBeSynced = resourcesToBeSynced.filter((b: any) => b.category === AmplifyCategories.STORAGE);
   }
 
   toBeSynced
-    .filter(storageResource => storageResource.sync === 'unlink')
-    .forEach(storageResource => {
-      context.amplify.removeResourceParameters(context, category, storageResource.resourceName);
+    .filter((storageResource: any) => storageResource.sync === 'unlink')
+    .forEach((storageResource: any) => {
+      context.amplify.removeResourceParameters(context, AmplifyCategories.STORAGE, storageResource.resourceName);
     });
 
-  let tasks = [];
+  let tasks: any = [];
 
   // For pull change detection for import sees a difference, to avoid duplicate tasks we don't
   // add the syncable resources, as allResources covers it, otherwise it is required for env add
@@ -143,13 +143,14 @@ async function initEnv(context) {
     tasks.push(...allResources);
   }
 
+  // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'storageResource' implicitly has an 'any... Remove this comment to see the full error message
   const storageTasks = tasks.map(storageResource => {
     const { resourceName, service } = storageResource;
 
     return async () => {
-      const config = await updateConfigOnEnvInit(context, category, resourceName, service);
+      const config = await updateConfigOnEnvInit(context, AmplifyCategories.STORAGE, resourceName, service);
 
-      context.amplify.saveEnvResourceParameters(context, category, resourceName, config);
+      context.amplify.saveEnvResourceParameters(context, AmplifyCategories.STORAGE, resourceName, config);
     };
   });
 
@@ -158,11 +159,11 @@ async function initEnv(context) {
 
 module.exports = {
   add,
-  console,
+  console : categoryConsole,
   initEnv,
-  migrate,
+  migrate: migrateStorageCategory,
   getPermissionPolicies,
   executeAmplifyCommand,
   handleAmplifyEvent,
-  category,
+  category: AmplifyCategories.STORAGE,
 };

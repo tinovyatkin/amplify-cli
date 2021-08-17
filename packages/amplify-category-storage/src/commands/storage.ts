@@ -1,11 +1,11 @@
-const categoryName = 'storage';
+import {AmplifyCategories , CLISubCommands} from 'amplify-cli-core';
 
 module.exports = {
-  name: categoryName,
-  run: async context => {
+  name: AmplifyCategories.STORAGE,
+  run: async (context: any) => {
     if (/^win/.test(process.platform)) {
       try {
-        const { run } = require(`./${categoryName}/${context.parameters.first}`);
+        const { run } = require(`./${AmplifyCategories.STORAGE}/${context.parameters.first}`);
 
         return run(context);
       } catch (e) {
@@ -13,28 +13,28 @@ module.exports = {
       }
     }
 
-    const header = `amplify ${categoryName} <subcommands>`;
+    const header = `amplify ${AmplifyCategories.STORAGE} <subcommands>`;
 
     const commands = [
       {
-        name: 'add',
-        description: `Takes you through steps in the CLI to add a ${categoryName} resource to your local backend`,
+        name: CLISubCommands.ADD,
+        description: `Takes you through steps in the CLI to add a ${AmplifyCategories.STORAGE} resource to your local backend`,
       },
       {
-        name: 'import',
-        description: `Takes you through a CLI flow to import an existing ${categoryName} resource to your local backend`,
+        name: CLISubCommands.IMPORT,
+        description: `Takes you through a CLI flow to import an existing ${AmplifyCategories.STORAGE} resource to your local backend`,
       },
       {
-        name: 'update',
-        description: `Takes you through steps in the CLI to update an ${categoryName} resource`,
+        name: CLISubCommands.UPDATE,
+        description: `Takes you through steps in the CLI to update an ${AmplifyCategories.STORAGE} resource`,
       },
       {
-        name: 'push',
-        description: `Provisions only ${categoryName} cloud resources with the latest local developments`,
+        name: CLISubCommands.PUSH,
+        description: `Provisions only ${AmplifyCategories.STORAGE} cloud resources with the latest local developments`,
       },
       {
-        name: 'remove',
-        description: `Removes ${categoryName} resource from your local backend. The resource is removed from the cloud on the next push command.`,
+        name: CLISubCommands.REMOVE,
+        description: `Removes ${AmplifyCategories.STORAGE} resource from your local backend. The resource is removed from the cloud on the next push command.`,
       },
     ];
 

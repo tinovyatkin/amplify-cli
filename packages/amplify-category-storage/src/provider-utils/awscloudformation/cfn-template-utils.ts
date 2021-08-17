@@ -3,6 +3,7 @@ import { Template } from 'cloudform-types';
 import Table, { AttributeDefinition, GlobalSecondaryIndex } from 'cloudform-types/types/dynamoDb/table';
 import _ from 'lodash';
 import * as path from 'path';
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/sachinrp/amplify-workspace/CLIOverrid... Remove this comment to see the full error message
 import { category } from '../..';
 
 export const getCloudFormationTemplatePath = (resourceName: string) => {
