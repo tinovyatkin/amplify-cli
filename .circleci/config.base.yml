@@ -8,14 +8,13 @@ executors:
   windows: &windows-executor
     machine:
       image: 'windows-server-2019-vs2019:stable'
-      resource_class: 'windows.medium'
+      resource_class: 'windows.large'
       shell: powershell.exe
     working_directory: ~/repo
 <<<<<<< HEAD
     environment:
       AMPLIFY_DIR: /home/circleci/repo/out
       AMPLIFY_PATH: /home/circleci/repo/out/amplify.exe
-
 
   build_img: &build-executor
     docker:
@@ -51,7 +50,6 @@ node12: &node12
     - image: ${AWS_ECR_ACCOUNT_URL}/amplify-cli-e2e-base-image-repo-public:latest
   resource_class: large
 
-
 defaults: &defaults
   working_directory: ~/repo
   parameters:
@@ -60,10 +58,8 @@ defaults: &defaults
       default: linux
   executor: << parameters.os >>
 
-
 clean_e2e_resources: &clean_e2e_resources
   name: Cleanup resources
-  shell: bash.exe
   command: |
     pwd
     cd packages/amplify-e2e-tests
@@ -90,7 +86,7 @@ run_e2e_tests: &run_e2e_tests
     startLocalRegistry "$(pwd)/.circleci/verdaccio.yaml"
     setNpmRegistryUrlToLocal
     cd packages/amplify-e2e-tests
-    yarn run e2e --maxWorkers=3 $TEST_SUITE
+    yarn run e2e --detectOpenHandles --maxWorkers=3 $TEST_SUITE
     unsetNpmRegistryUrl
   no_output_timeout: 90m
 
@@ -465,6 +461,7 @@ jobs:
       # - store_artifacts:
       #     path: ~/repo/packages/amplify-e2e-tests/amplify-e2e-reports
 
+<<<<<<< HEAD
 =======
       - attach_workspace:
           at: ./
@@ -482,6 +479,8 @@ jobs:
           path: ~/repo/packages/amplify-e2e-tests/amplify-e2e-reports
 >>>>>>> e1ed94dca (test: win-e2e)
 
+=======
+>>>>>>> 9b46cbd80 (test: windows fixes)
   done_with_node_e2e_tests:
     <<: *node12
     steps:
@@ -635,6 +634,7 @@ jobs:
       - run:
           name: Run tests migrating from latest CLI
           command: |
+            yarn pkg-all
             source .circleci/local_publish_helpers.sh
             changeNpmGlobalPath
             cd packages/amplify-migration-tests
@@ -1320,7 +1320,7 @@ commands:
                 name: Run E2E tests
                 command: |
                   cd packages/amplify-e2e-tests
-                  yarn run e2e --maxWorkers=3 $ENV:TEST_SUITE
+                  yarn run e2e --detectOpenHandles --maxWorkers=3 $ENV:TEST_SUITE
                 no_output_timeout: 90m
       - when:
           condition:
@@ -1334,7 +1334,7 @@ commands:
                   source $BASH_ENV
                   amplify version
                   cd packages/amplify-e2e-tests
-                  yarn run e2e --maxWorkers=3 $TEST_SUITE
+                  yarn run e2e --detectOpenHandles --maxWorkers=3 $TEST_SUITE
                 no_output_timeout: 90m
   scan_e2e_test_artifacts:
     description: 'Scan And Cleanup E2E Test Artifacts'

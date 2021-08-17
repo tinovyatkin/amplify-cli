@@ -1,9 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import * as pty from 'node-pty-prebuilt-multiarch';
 // import * as pty from 'node-pty';
 =======
 import * as pty from 'node-pty';
 >>>>>>> e1ed94dca (test: win-e2e)
+=======
+import * as pty from 'node-pty';
+>>>>>>> 9b46cbd80 (test: windows fixes)
 import chalk from 'chalk';
 
 export type RecordingHeader = {
